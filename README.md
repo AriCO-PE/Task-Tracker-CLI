@@ -11,7 +11,7 @@ This project was built as a solution to the [roadmap.sh](https://roadmap.sh/proj
 * **Robust error handling**: Validates user inputs (e.g., checks for missing arguments or text where numbers are expected).
 * **Auto-incrementing IDs**: Every new task automatically receives a unique identifier.
 
-## 🛠️ Requirements
+##  Requirements
 
 * [Python 3.x](https://www.python.org/) installed on your machine. 
 
