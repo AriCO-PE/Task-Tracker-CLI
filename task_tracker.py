@@ -107,4 +107,89 @@ elif command == "update-":
             tasks = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         tasks = []
-    
+
+#change name
+    task_found = False  
+
+    for task in tasks:
+        if task["id"] == task_id:
+            task["name"] = new_name  
+            task_found = True        
+            break
+
+    #save
+    if not task_found:
+        print(f"error: Task with ID {task_id} not found.")
+    else:
+        with open(file, "w") as f:
+            json.dump(tasks, f, indent=4)
+        print(f"Task with ID {task_id} updated successfully to name '{new_name}'.")
+
+    # command mark-in-progress
+elif command == "mark-in-progress":
+    if len(argv) < 3:
+        print("error: missing task ID for 'mark-in-progress' command")
+        exit(1)
+    else:
+        try:
+            task_id = int(argv[2])
+        except ValueError:
+            print("error: task ID must be an integer")
+            exit(1)
+
+        try: 
+            with open(file, "r") as f:
+                tasks = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+         tasks = []
+
+
+#mark in progress
+    task_found = False
+    for task in tasks:
+        if task["id"] == task_id:
+            task["status"] = "in-progress"
+            task_found = True
+            break
+
+    if not task_found:
+        print(f"error: Task with ID {task_id} not found.")
+    else:
+        with open(file, "w") as f:
+            json.dump(tasks, f, indent=4)
+        print(f"Task with ID {task_id} marked as in-progress.")
+
+
+#mark-done
+
+elif command == "mark-done":
+    if len(argv) < 3:
+        print("error: missing task ID for 'mark-done' command")
+        exit(1)
+    else:
+        try:
+            task_id = int(argv[2])
+        except ValueError:
+            print("error: task ID must be an integer")
+            exit(1)
+
+        try: 
+            with open(file, "r") as f:
+                tasks = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            tasks = []
+
+    # mark done
+    task_found = False
+    for task in tasks:
+        if task["id"] == task_id:
+            task["status"] = "done"
+            task_found = True
+            break
+
+    if not task_found:
+        print(f"error: Task with ID {task_id} not found.")
+    else:
+        with open(file, "w") as f:
+            json.dump(tasks, f, indent=4)
+        print(f"Task with ID {task_id} marked as done.")
